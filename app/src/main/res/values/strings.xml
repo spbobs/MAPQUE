@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">MAPQUE</string>
+    <string name="splash_title">BOBS</string>
+    <string name="title_touchthescreen">Touch the screen</string>
+
+    <!-- permission -->
+    <string name="permission_granted">권한 획득 성공</string>
+    <string name="permission_denied_title">권한 획득 실패</string>
+    <string name="permission_rationale_title">권한 허용 필요</string>
+    <string name="permission_rationale_msg">지도를 사용하기 위해 필요한 권한입니다.</string>
+    <string name="permission_denied_msg">[설정] > [권한] 에서 권한을 허용할 수 있습니다.</string>
+
+    <string-array name="btn_titles">
+        <item>지도</item>
+        <item>검색 기록</item>
+    </string-array>
+
+    <string name="btn_titles_prefix">&lt;</string>
+    <string name="btn_titles_suffix">&gt;</string>
+
+    <!-- SearchListFragment -->
+    <string name="searchlist_query_hint">검색어를 입력하세요.</string>
+    <string name="searchlist_title">지금까지 검색한 목록입니다</string>
+    <string name="searchlist_address_title">선택한 주소 :</string>
+    <string name="searchlist_date_title">검색 시간 :</string>
+    <string name="searchlist_refreshall_btn_title">전체 목록 보기</string>
+
+    <string-array name="compare_list">
+        <item>제목</item>
+        <item>검색 시간</item>
+    </string-array>
+
+    <!-- Native Ad Dialog-->
+    <string name="ad_attribution">Ad</string>
+    <string name="dialog_native_ad_title">앱을 종료할까요?</string>
+    <string name="dialog_native_ad_mute">비디오 광고 음소거</string>
+    <string name="dialog_native_ad_btn_finish">종료</string>
+    <string name="dialog_native_ad_btn_cancel">취소</string>
+
+    <!-- MapFragment -->
+    <string name="search_dialog_title">검색 결과...</string>
+    <string name="search_dialog_search_hint">많을 경우 세부 검색을 해보세요!</string>
+    <string name="search_view_search_fail">검색 결과가 없습니다.</string>
+    <string name="last_location_empty">마지막으로 검색한 위치가 없습니다.</string>
+    <string name="marker_dialog_sharebtn_title">카카오톡 공유</string>
+    <string name="marker_dialog_cancelbtn_title">닫기</string>
+    <string name="coord2Address_fail">해당 위치 정보를 가져오지 못했습니다. 다시 시도해 주세요.</string>
+    <string name="mylocation_title">내 위치</string>
+    <string name="lastlocation_title">마지막 검색 위치</string>
+
+    <!-- MainActivity -->
+    <string name="gps_enable_dialog_title">위치 서비스 비활성화</string>
+    <string name="gps_enable_dialog_content">"""
+                앱을 사용하기 위해서는 위치 서비스가 필요합니다.
+                위치 서비스를 설정해 주세요.
+                취소를 누를경우 앱이 꺼집니다.
+                """</string>
+    <string name="gps_enable_dialog_settingbtn_title">설정</string>
+
+    <!-- kakao template -->
+    <string name="template_content">검색 위치 공유합니다.</string>
+
+    <!-- help -->
+    <string name="help_title">도움말</string>
+    <string name="help_content">"""
+        * 도움말은 앱 최초 실행 시 한번 뜹니다.
+
+
+        1. 맵화면에서 검색은 주소를 입력해야합니다.
+
+        2. 우측 하단 + 버튼을 누르면 각종 버튼이 나옵니다.
+
+        3. 우측 상단 버튼 터치시 검색 목록 화면으로 갑니다.
+
+        4. 검색한 위치의 마커 터치시 상세보기가 가능합니다.
+
+        5. 공유 기능은 카카오톡으로 해당 위치를 공유할 수 있습니다.
+
+        6. 앱을 삭제 후 재설치하면 검색 목록은 초기화 됩니다."""</string>
+</resources>

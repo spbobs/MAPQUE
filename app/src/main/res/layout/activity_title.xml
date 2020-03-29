@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.title.TitleActivity">
+	<!--	android:background="@drawable/title"-->
+
+	<ImageView
+		android:id="@+id/imgTitle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:adjustViewBounds="true"
+		android:padding="18dp"
+		android:src="@drawable/mapque_title"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/titleblink"/>
+
+	<com.bobs.baselibrary.customwidget.CustomTextView
+		android:id="@+id/text_title_title"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="180dp"
+		android:gravity="center"
+		android:text="@string/app_name"
+		android:textColor="@android:color/black"
+		android:textSize="80sp"
+		android:textStyle="bold"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:outerShadowRadius="10dp"
+		app:strokeColor="@color/fbutton_color_midnight_blue"
+		app:strokeJoinStyle="miter"
+		app:strokeWidth="3dp"
+		tools:ignore="MissingConstraints"/>
+
+	<TextView
+		android:id="@+id/titleblink"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="109dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="200dp"
+		android:gravity="center"
+		android:text="@string/title_touchthescreen"
+		android:textColor="@color/primaryDark"
+		android:textSize="24sp"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/text_title_title"
+		tools:ignore="MissingConstraints"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

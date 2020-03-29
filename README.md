@@ -1,2 +1,2 @@
-# mapque
+# MAPQUE
  맵큐

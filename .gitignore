@@ -1,7 +1,11 @@
+<<<<<<< HEAD
+
 # Created by https://www.gitignore.io/api/kotlin,android,androidstudio
 # Edit at https://www.gitignore.io/?templates=kotlin,android,androidstudio
 
 ### Android ###
+=======
+>>>>>>> parent of acaec12... Revert "Initial commit"
 # Built application files
 *.apk
 *.ap_
@@ -17,7 +21,12 @@
 bin/
 gen/
 out/
+<<<<<<< HEAD
 release/
+=======
+#  Uncomment the following line in case you need and you don't have the release build type files in your app
+# release/
+>>>>>>> parent of acaec12... Revert "Initial commit"
 
 # Gradle files
 .gradle/
@@ -54,8 +63,8 @@ captures/
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
-#*.jks
-#*.keystore
+*.jks
+*.keystore
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -84,6 +93,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+<<<<<<< HEAD
 
 ### Android Patch ###
 gen-external-apklibs
@@ -221,3 +231,5 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/kotlin,android,androidstudio
+=======
+>>>>>>> parent of acaec12... Revert "Initial commit"

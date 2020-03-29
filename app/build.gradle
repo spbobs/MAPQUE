@@ -64,6 +64,12 @@ android {
 
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Mapque_${variant.versionName}.apk"
+        }
+    }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8

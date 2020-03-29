@@ -20,7 +20,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintBottom_toTopOf="@id/titleblink"/>
 
-	<com.bobs.baselibrary.customwidget.CustomTextView
+	<com.bobs.mapque.util.CustomTextView
 		android:id="@+id/text_title_title"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"

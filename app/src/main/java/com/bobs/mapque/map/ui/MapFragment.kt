@@ -174,7 +174,7 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
 
                 // 내 위치 트랙킹을 다시 활성화 시킨다
                 mapView.currentLocationTrackingMode =
-                    MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+                    MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
                 onceMyLocationMove = false
             }
         }
@@ -231,7 +231,7 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
 
             // 내 위치 좌표를 가져오기 위한 트랙킹모드 활성화 및 리스너 추가
             currentLocationTrackingMode =
-                MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+                MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
             setCurrentLocationEventListener(this@MapFragment)
         }
 
@@ -284,7 +284,7 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
             mapView.requestFocus()
         }
 
-        onceMyLocationMove = !selectedMyLocation
+        onceMyLocationMove = true
 
         mainActivity.hideLoading()
     }

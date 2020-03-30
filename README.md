@@ -53,6 +53,7 @@
   
 - SDK
   - Kakao Map
+  - Kakao link
   - Firebase analytics
   - Firebase crashlytics
   - Admob UnifiedNativeAd

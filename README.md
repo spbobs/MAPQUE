@@ -3,7 +3,7 @@
 [![HitCount](http://hits.dwyl.com/waterbobs/MAPQUE.svg)](http://hits.dwyl.com/waterbobs/MAPQUE)
  
  - 2번째 개인 프로젝트
- - google play store : 심사중
+ - google play store : 검수중
 
 
 # 특징

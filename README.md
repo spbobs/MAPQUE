@@ -4,6 +4,7 @@
  
  - 2번째 개인 프로젝트
  - google play store : 검수중
+ - 개발자 경력 : https://github.com/waterbobs/ME
 
 
 # 특징

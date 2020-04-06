@@ -50,8 +50,6 @@
             android:name=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name="com.bobs.baselibrary.ui.KeyHashTestActivity">
-        </activity>
     </application>
 
 </manifest>

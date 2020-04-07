@@ -1,15 +1,12 @@
 package com.bobs.mapque.di
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.room.Room
 import com.bobs.mapque.BuildConfig
-import com.bobs.mapque.MyApplication
-import com.bobs.mapque.map.model.searchaddress.SearchAddressData
-import com.bobs.mapque.map.model.searchaddress.SearchAddressRepository
-import com.bobs.mapque.searchlist.model.room.AppDatabase
-import com.bobs.mapque.searchlist.model.room.SearchListRepository
-import com.bobs.mapque.searchlist.model.room.SearchListData
+import com.bobs.mapque.map.data.searchaddress.SearchAddressDataSource
+import com.bobs.mapque.map.data.searchaddress.SearchAddressRepository
+import com.bobs.mapque.searchlist.data.room.AppDatabase
+import com.bobs.mapque.searchlist.data.source.SearchListRepository
+import com.bobs.mapque.searchlist.data.source.SearchListDataSource
 import com.bobs.mapque.network.api.SearchAddressService
 import com.bobs.mapque.map.viewmodel.MapViewModel
 import com.bobs.mapque.searchlist.viewmodel.SearchListViewModel
@@ -67,8 +64,12 @@ val apiModule = module {
 
 // 레포지토리 di
 val dataModule = module {
-    single<SearchAddressData> { SearchAddressRepository(get()) }
-    single<SearchListData> { SearchListRepository(get()) }
+    single<SearchAddressDataSource> { SearchAddressRepository(get()) }
+    single<SearchListDataSource> {
+        SearchListRepository(
+            get()
+        )
+    }
 }
 
 val RD = "RD"

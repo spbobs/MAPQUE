@@ -1,4 +1,4 @@
-package com.bobs.mapque.map.model.searchdialog
+package com.bobs.mapque.map.data.searchdialog
 
 import ir.mirrajabi.searchdialog.core.Searchable
 

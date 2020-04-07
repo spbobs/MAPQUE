@@ -1,4 +1,4 @@
-package com.bobs.mapque.dialog
+package com.bobs.mapque.ui.dialog
 
 import android.app.Dialog
 import android.content.Context

@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.bobs.mapque.searchlist.model.room.AppDatabase
-import com.bobs.mapque.searchlist.model.room.SearchItemDao
+import com.bobs.mapque.searchlist.data.room.AppDatabase
+import com.bobs.mapque.searchlist.data.room.SearchItemDao
 import org.junit.After
 
 import org.junit.Test

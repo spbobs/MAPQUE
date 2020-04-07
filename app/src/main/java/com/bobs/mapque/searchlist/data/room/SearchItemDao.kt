@@ -1,9 +1,10 @@
-package com.bobs.mapque.searchlist.model.room
+package com.bobs.mapque.searchlist.data.room
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.bobs.mapque.searchlist.data.model.SearchItem
 
 @Dao
 interface SearchItemDao {

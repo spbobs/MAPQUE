@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.bobs.baselibrary.base.BaseViewModel
 import com.bobs.baselibrary.util.logd
 import com.bobs.baselibrary.util.loge
-import com.bobs.mapque.searchlist.model.room.SearchItem
-import com.bobs.mapque.searchlist.model.room.SearchListData
-import com.bobs.mapque.map.model.searchaddress.SearchAddressData
+import com.bobs.mapque.searchlist.data.model.SearchItem
+import com.bobs.mapque.searchlist.data.source.SearchListDataSource
+import com.bobs.mapque.map.data.searchaddress.SearchAddressDataSource
 import com.bobs.mapque.network.response.IResult
 import com.bobs.mapque.network.response.coord.DocumentsItem
 import com.bobs.mapque.network.response.searchaddress.SearchAddressResponse
@@ -16,8 +16,8 @@ import io.reactivex.schedulers.Schedulers
 import org.joda.time.DateTime
 
 class MapViewModel(
-    private val model: SearchAddressData,
-    private val searchListData: SearchListData
+    private val model: SearchAddressDataSource,
+    private val searchListDataSource: SearchListDataSource
 ) : BaseViewModel() {
     private val _searchAddressData: MutableLiveData<SearchAddressResponse> = MutableLiveData()
     val searchAddressData: LiveData<SearchAddressResponse> = _searchAddressData
@@ -76,7 +76,14 @@ class MapViewModel(
     ) {
         // room에 저장
         val searchItem =
-            SearchItem(0, searchQuery, address, latitude, longitude, date)
-        searchListData.insert(searchItem)
+            SearchItem(
+                0,
+                searchQuery,
+                address,
+                latitude,
+                longitude,
+                date
+            )
+        searchListDataSource.insert(searchItem)
     }
 }

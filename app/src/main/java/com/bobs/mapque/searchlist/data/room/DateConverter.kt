@@ -1,4 +1,4 @@
-package com.bobs.mapque.searchlist.model.room
+package com.bobs.mapque.searchlist.data.room
 
 import androidx.room.TypeConverter
 import org.joda.time.DateTime

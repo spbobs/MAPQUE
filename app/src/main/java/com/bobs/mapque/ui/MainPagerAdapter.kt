@@ -1,4 +1,4 @@
-package com.bobs.mapque.map.ui
+package com.bobs.mapque.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

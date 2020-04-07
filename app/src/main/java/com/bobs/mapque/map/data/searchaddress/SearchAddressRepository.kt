@@ -1,4 +1,4 @@
-package com.bobs.mapque.map.model.searchaddress
+package com.bobs.mapque.map.data.searchaddress
 
 import com.bobs.mapque.network.api.SearchAddressService
 import com.bobs.mapque.network.response.coord.CoordInfoResponse
@@ -6,7 +6,7 @@ import com.bobs.mapque.network.response.searchaddress.SearchAddressResponse
 import io.reactivex.Single
 
 class SearchAddressRepository(private val api: SearchAddressService) :
-    SearchAddressData {
+    SearchAddressDataSource {
     // 주소 검색 API를 호출
     override fun getAddress(query: String): Single<SearchAddressResponse> = api.searchAddress(query = query)
 

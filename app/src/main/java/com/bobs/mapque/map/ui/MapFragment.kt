@@ -14,13 +14,12 @@ import com.bobs.baselibrary.ext.boolean
 import com.bobs.baselibrary.ext.toast
 import com.bobs.baselibrary.util.loge
 import com.bobs.mapque.R
-import com.bobs.mapque.map.model.searchdialog.SearchModel
+import com.bobs.mapque.map.data.searchdialog.SearchModel
 import com.bobs.mapque.network.response.IResult
 import com.bobs.mapque.network.response.coord.DocumentsItem
 import com.bobs.mapque.ui.MainActivity
 import com.bobs.mapque.util.ext.sendCustomTemplate
 import com.bobs.mapque.map.viewmodel.MapViewModel
-import com.bobs.mapque.util.ext.sharedPreferences
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat
 import ir.mirrajabi.searchdialog.core.SearchResultListener
 import kotlinx.android.synthetic.main.fragment_map.*
@@ -31,7 +30,6 @@ import org.joda.time.DateTime
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import org.koin.dsl.module
 import java.util.*
 
 class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLocationEventListener {

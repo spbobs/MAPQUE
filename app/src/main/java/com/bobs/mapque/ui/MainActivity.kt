@@ -13,9 +13,8 @@ import androidx.core.view.isVisible
 import androidx.viewpager.widget.ViewPager
 import com.bobs.baselibrary.util.loge
 import com.bobs.mapque.R
-import com.bobs.mapque.map.ui.MainPagerAdapter
-import com.bobs.mapque.dialog.NativeAdDialog
-import com.bobs.mapque.searchlist.model.room.SearchItem
+import com.bobs.mapque.ui.dialog.NativeAdDialog
+import com.bobs.mapque.searchlist.data.model.SearchItem
 import com.bobs.mapque.map.ui.MapFragment
 import com.bobs.mapque.searchlist.ui.SearchListFragment
 import com.bobs.mapque.util.GpsTracker

@@ -9,7 +9,7 @@ import com.bobs.baselibrary.ext.toast
 import com.bobs.baselibrary.util.loge
 import com.bobs.mapque.R
 import com.bobs.mapque.databinding.FragmentSearchListBinding
-import com.bobs.mapque.searchlist.model.room.SearchItem
+import com.bobs.mapque.searchlist.data.model.SearchItem
 import com.bobs.mapque.ui.MainActivity
 import com.bobs.mapque.util.listener.MapListener
 import com.bobs.mapque.util.listener.SearchListListener

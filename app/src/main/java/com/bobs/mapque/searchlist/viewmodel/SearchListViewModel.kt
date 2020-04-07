@@ -6,21 +6,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bobs.baselibrary.base.BaseViewModel
 import com.bobs.baselibrary.util.loge
-import com.bobs.mapque.searchlist.model.room.SearchItem
-import com.bobs.mapque.searchlist.model.room.SearchListData
+import com.bobs.mapque.searchlist.data.model.SearchItem
+import com.bobs.mapque.searchlist.data.source.SearchListDataSource
 import com.bobs.mapque.util.ext.sendCustomTemplate
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class SearchListViewModel(private val searchListData: SearchListData) : BaseViewModel() {
+class SearchListViewModel(private val searchListDataSource: SearchListDataSource) : BaseViewModel() {
     enum class ListCompareType(columnName: String) {
         SEARCH_QUERY("search_query"),
         SEARCH_DATE("search_date")
     }
 
-    private var compareType =
-        ListCompareType.SEARCH_DATE
+    private var compareType = ListCompareType.SEARCH_DATE
     private var isAsc = false
 
     private var _ldSearchList: MutableLiveData<List<SearchItem>> = MutableLiveData()
@@ -33,7 +32,7 @@ class SearchListViewModel(private val searchListData: SearchListData) : BaseView
     fun refreshList() {
         AsyncTask.execute {
             // postvalue는 메인스레드에서는 호출할 수 없다.
-            _ldSearchList.postValue(searchListData.getAllSearchList())
+            _ldSearchList.postValue(searchListDataSource.getAllSearchList())
         }
     }
 
@@ -92,7 +91,7 @@ class SearchListViewModel(private val searchListData: SearchListData) : BaseView
 
     fun delete(searchItem: SearchItem) {
         // 아이템 삭제
-        searchListData.delete(searchItem)
+        searchListDataSource.delete(searchItem)
 
         _ldSearchList.value?.let {
             val deletelist = it.toMutableList()

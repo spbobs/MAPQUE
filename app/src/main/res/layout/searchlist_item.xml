@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.bobs.mapque.searchlist.model.room.SearchItem" />
+            type="com.bobs.mapque.searchlist.data.model.SearchItem" />
     </data>
 
     <androidx.cardview.widget.CardView

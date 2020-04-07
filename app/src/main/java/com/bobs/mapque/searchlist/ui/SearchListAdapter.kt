@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bobs.mapque.R
 import com.bobs.mapque.databinding.SearchlistItemBinding
-import com.bobs.mapque.searchlist.model.room.SearchItem
+import com.bobs.mapque.searchlist.data.model.SearchItem
 import com.bobs.mapque.util.listener.MapListener
 import com.bobs.mapque.util.listener.SearchListListener
 

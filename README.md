@@ -33,7 +33,7 @@
 - Retrofit2 & GSon & Rxjava2
 - OkHttp3
 
-- Library's
+- Library
   - live
     - [TedPermission](https://github.com/ParkSangGwon/TedPermission)
     - [Logger](https://github.com/orhanobut/logger)

@@ -17,6 +17,7 @@ import com.bobs.mapque.ui.dialog.NativeAdDialog
 import com.bobs.mapque.searchlist.data.model.SearchItem
 import com.bobs.mapque.map.ui.MapFragment
 import com.bobs.mapque.searchlist.ui.SearchListFragment
+import com.bobs.mapque.util.ADManager
 import com.bobs.mapque.util.GpsTracker
 import com.bobs.mapque.util.listener.MapListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val mapFragment = MapFragment.newInstance()
-    private val searchListFragment = SearchListFragment.newInstance(null, mapListener)
     private val btnTitles: Array<String> by lazy { resources.getStringArray(R.array.btn_titles) }
     private val gpsTracker: GpsTracker = GpsTracker(this@MainActivity)
 
@@ -51,8 +51,6 @@ class MainActivity : AppCompatActivity() {
 
         // 카카오 등록용 키해시
 //        Log.e("bobs", getKeyHash(this))
-
-//        setMapMyLocation()
 
         // 툴바
         setSupportActionBar(toolbar)
@@ -89,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
         ).apply {
             addFragment(mapFragment)
-            addFragment(searchListFragment)
+            addFragment(SearchListFragment.newInstance(null, mapListener))
         }
 
         // 뷰 페이져 세팅
@@ -169,12 +167,6 @@ class MainActivity : AppCompatActivity() {
             .setMessage(
                 getString(R.string.gps_enable_dialog_content).trimIndent()
             )
-//            .setMessage(
-//                """
-//                앱을 사용하기 위해서는 위치 서비스가 필요합니다.
-//                위치 서비스를 설정해 주세요.
-//                """.trimIndent()
-//            )
             .setCancelable(true)
             .setPositiveButton(getString(R.string.gps_enable_dialog_settingbtn_title)) { dialog, id ->
                 val callGPSSettingIntent =
@@ -193,26 +185,9 @@ class MainActivity : AppCompatActivity() {
 
         when (requestCode) {
             GPS_ENABLE_REQUEST_CODE -> {
-//                showLoading()
-//                if (gpsTracker.checkLocationServicesStatus())
-//                    setMapMyLocation()
             }
         }
     }
-
-//    fun setMapMyLocation() {
-//        gpsTracker.isEnableGetLocation {
-//            // 현재 위치를 세팅한다
-//            var curLocation = gpsTracker.getCurrentLocation()
-//            hideLoading()
-//            mapFragment.setLocationAndMoveMap(
-//                curLocation.latitude,
-//                curLocation.longitude,
-//                "내 위치",
-//                true
-//            )
-//        }
-//    }
 
     fun showLoading() {
         loading_blur.visibility = View.VISIBLE
@@ -226,12 +201,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showKeyboard() {
-        (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
-            InputMethodManager.SHOW_FORCED,
-            0
-        )
-    }
+//    fun showKeyboard() {
+//        (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
+//            InputMethodManager.SHOW_FORCED,
+//            0
+//        )
+//    }
 
     fun hideKeyboard() {
         (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
@@ -243,5 +218,10 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         // 백키 터치시 네이티브 고급형 광고 다이얼로그 오픈
         NativeAdDialog(this).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ADManager.unifiedNativeAd?.destroy()
     }
 }

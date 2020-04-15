@@ -2,6 +2,7 @@ package com.bobs.mapque
 
 import com.bobs.baselibrary.base.BaseApplication
 import com.bobs.mapque.di.*
+import com.bobs.mapque.util.ADManager
 import com.google.android.gms.ads.MobileAds
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -26,5 +27,8 @@ class MyApplication : BaseApplication() {
 
         // admob 초기화
         MobileAds.initialize(this) {}
+
+        // 광고 미리 로드
+        ADManager.loadAd(this)
     }
 }

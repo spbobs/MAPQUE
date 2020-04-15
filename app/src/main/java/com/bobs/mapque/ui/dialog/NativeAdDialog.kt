@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.bobs.baselibrary.util.loge
 import com.bobs.mapque.BuildConfig
 import com.bobs.mapque.R
+import com.bobs.mapque.util.ADManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -19,8 +20,6 @@ import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import kotlinx.android.synthetic.main.dialog_native_ad.*
-
-var currentNativeAd: UnifiedNativeAd? = null
 
 class NativeAdDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,48 +41,13 @@ class NativeAdDialog(context: Context) : Dialog(context) {
     }
 
     private fun refreshUnifiedNativeAd() {
-        val builder = AdLoader.Builder(context, BuildConfig.NATIVE_AD_ID)
-            .forUnifiedNativeAd {
-                loge("광고 로드 성공")
-
-                // 광고 로드를 성공한 뒤 광고뷰를 세팅한다(중요)
-                val adView =
-                    layoutInflater.inflate(R.layout.ad_unified, null) as UnifiedNativeAdView
-                populateUnifiedNativeAdView(it, adView)
-                adviewContainer.removeAllViews()
-                adviewContainer.addView(adView)
-            }
-            .withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(errorCode: Int) {
-                    // 여기서 새 광고 로드는 권장 안함.
-                    loge("광고 로드 실패: $errorCode")
-                }
-
-                override fun onAdClicked() {
-                    loge("광고 클릭")
-                }
-
-                override fun onAdOpened() {
-                    loge("광고 열림")
-                }
-
-                override fun onAdClosed() {
-                    loge("광고 닫힘")
-                }
-            })
-
-        val videoOptions = VideoOptions.Builder()
-            .setStartMuted(start_muted_checkbox.isChecked)
-            .build()
-
-        val adOptions = NativeAdOptions.Builder()
-            .setVideoOptions(videoOptions)
-            .build()
-
-        builder.withNativeAdOptions(adOptions)
-
-        val adLoader = builder.build()
-        adLoader.loadAd(AdRequest.Builder().build())
+        ADManager.unifiedNativeAd?.let {
+            val adView =
+                layoutInflater.inflate(R.layout.ad_unified, null) as UnifiedNativeAdView
+            populateUnifiedNativeAdView(it, adView)
+            adviewContainer.removeAllViews()
+            adviewContainer.addView(adView)
+        }
     }
 
     private fun populateUnifiedNativeAdView(
@@ -92,8 +56,6 @@ class NativeAdDialog(context: Context) : Dialog(context) {
     ) {
         // You must call destroy on old ads when you are done with them,
         // otherwise you will have a memory leak.
-        currentNativeAd?.destroy()
-        currentNativeAd = nativeAd
 
         // Set the media view.
         adView.mediaView = adView.findViewById(R.id.ad_media)
@@ -188,11 +150,5 @@ class NativeAdDialog(context: Context) : Dialog(context) {
 //            }
 //        } else {
 //        }
-    }
-
-    override fun dismiss() {
-        // 다이얼로그가 꺼질때 광고도 끈다
-        currentNativeAd?.destroy()
-        super.dismiss()
     }
 }

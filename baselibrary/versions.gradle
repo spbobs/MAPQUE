@@ -61,8 +61,8 @@ build_versions.min_sdk = 23
 build_versions.compile_sdk = 29
 build_versions.target_sdk = 29
 build_versions.build_tools = "29.0.3"
-build_versions.versionCode = 2
-build_versions.versionName = "1.0.0"
+build_versions.versionCode = 3
+build_versions.versionName = "1.0.3"
 ext.build_versions = build_versions
 
 def deps = [:]

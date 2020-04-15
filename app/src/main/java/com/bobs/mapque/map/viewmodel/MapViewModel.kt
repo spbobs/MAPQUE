@@ -32,7 +32,6 @@ class MapViewModel(
                     it.run {
                         if (meta?.totalCount!! > 0) {
                             logd("meta: $meta")
-                            // livedata의 setvalue는 메인쓰레드에서 한다.
                             _searchAddressData.value = this
                             iResult.success("")
                         } else {
@@ -46,21 +45,21 @@ class MapViewModel(
         )
     }
 
-    fun getCoordInfo(latitude: Double, longitude: Double, iResult: IResult<DocumentsItem?>){
+    fun getCoordInfo(latitude: Double, longitude: Double, iResult: IResult<DocumentsItem?>) {
         // 좌표 -> 주소 변환 결과 처리
         addDisposable(
             model.getCoordInfo(latitude, longitude)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    it.run{
-                        if(meta?.totalCount!! > 0){
+                    it.run {
+                        if (meta?.totalCount!! > 0) {
                             iResult.success(it.documents!![0])
                         } else {
                             iResult.fail()
                         }
                     }
-                },{
+                }, {
                     loge("response error: ${it.message}")
                     iResult.fail(it.message)
                 })
@@ -75,8 +74,7 @@ class MapViewModel(
         date: DateTime
     ) {
         // room에 저장
-        val searchItem =
-            SearchItem(
+        val searchItem = SearchItem(
                 0,
                 searchQuery,
                 address,

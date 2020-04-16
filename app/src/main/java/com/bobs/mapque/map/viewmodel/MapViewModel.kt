@@ -10,6 +10,7 @@ import com.bobs.mapque.searchlist.data.source.SearchListDataSource
 import com.bobs.mapque.map.data.searchaddress.SearchAddressDataSource
 import com.bobs.mapque.network.response.IResult
 import com.bobs.mapque.network.response.coord.DocumentsItem
+import com.bobs.mapque.network.response.keyword.SearchKeyWordResponse
 import com.bobs.mapque.network.response.searchaddress.SearchAddressResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,6 +23,9 @@ class MapViewModel(
     private val _searchAddressData: MutableLiveData<SearchAddressResponse> = MutableLiveData()
     val searchAddressData: LiveData<SearchAddressResponse> = _searchAddressData
 
+    private val _searchKeywordData: MutableLiveData<SearchKeyWordResponse> = MutableLiveData()
+    val searchKeywordData: LiveData<SearchKeyWordResponse> = _searchKeywordData
+
     fun getSearchAddress(query: String, iResult: IResult<String>) {
         // 주소 검색 결과 처리
         addDisposable(
@@ -33,6 +37,34 @@ class MapViewModel(
                         if (meta?.totalCount!! > 0) {
                             logd("meta: $meta")
                             _searchAddressData.value = this
+                            iResult.success("")
+                        } else {
+                            iResult.fail()
+                        }
+                    }
+                }, {
+                    loge("response error: ${it.message}")
+                    iResult.fail(it.message)
+                })
+        )
+    }
+
+    fun getSearchKeyword(
+        query: String,
+        latitude: Double,
+        longitude: Double,
+        iResult: IResult<String>
+    ) {
+        // 주소 검색 결과 처리
+        addDisposable(
+            model.getKeyword(query, latitude, longitude)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    it.run {
+                        if (meta?.totalCount!! > 0) {
+                            logd("meta: $meta")
+                            _searchKeywordData.value = this
                             iResult.success("")
                         } else {
                             iResult.fail()
@@ -71,17 +103,19 @@ class MapViewModel(
         address: String?,
         latitude: Double,
         longitude: Double,
-        date: DateTime
+        date: DateTime,
+        placeName: String = ""
     ) {
         // room에 저장
         val searchItem = SearchItem(
-                0,
-                searchQuery,
-                address,
-                latitude,
-                longitude,
-                date
-            )
+            0,
+            searchQuery,
+            placeName,
+            address,
+            latitude,
+            longitude,
+            date
+        )
         searchListDataSource.insert(searchItem)
     }
 }

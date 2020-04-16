@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,11 +16,11 @@ import com.bobs.baselibrary.ext.toast
 import com.bobs.baselibrary.util.loge
 import com.bobs.mapque.R
 import com.bobs.mapque.map.data.searchdialog.SearchModel
+import com.bobs.mapque.map.viewmodel.MapViewModel
 import com.bobs.mapque.network.response.IResult
 import com.bobs.mapque.network.response.coord.DocumentsItem
 import com.bobs.mapque.ui.MainActivity
 import com.bobs.mapque.util.ext.sendCustomTemplate
-import com.bobs.mapque.map.viewmodel.MapViewModel
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat
 import ir.mirrajabi.searchdialog.core.SearchResultListener
 import kotlinx.android.synthetic.main.fragment_map.*
@@ -46,6 +47,11 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
         }
     }
 
+    enum class SearchType{
+        ADDRESS,
+        KEYWORD
+    }
+
     private val mapViewModel: MapViewModel by viewModel { parametersOf() }
 
     private var onceMyLocationMove: Boolean = false
@@ -56,6 +62,9 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
 
     private var searchQuery: String? = null
     private var floatingAddress: String? = null
+
+    private var searchType: SearchType = SearchType.ADDRESS
+    private var placeName: String = ""
 
     val prefs: SharedPreferences by inject()
     var isFirstOpenHelpDialog by prefs.boolean("", false)
@@ -75,6 +84,8 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
         mapViewModel.searchAddressData.observe(
             viewLifecycleOwner,
             Observer { searchAddressResponse ->
+                placeName = ""
+
                 // 검색 다이얼로그용 리스트
                 val searchModels = mutableListOf<SearchModel>()
 
@@ -121,6 +132,59 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
                     }).show()
             })
 
+        mapViewModel.searchKeywordData.observe(
+            viewLifecycleOwner,
+            Observer { searchKeywordResponse ->
+                // 검색 다이얼로그용 리스트
+                val searchModels = mutableListOf<SearchModel>()
+
+                // 위 리스트에 서버에서 받아온 주소 이름들을 저장한다
+                searchKeywordResponse.documents?.forEach { document ->
+                    document?.placeName?.let { placeName ->
+                        searchModels.add(
+                            SearchModel(
+                                placeName
+                            )
+                        )
+                    }
+                }
+
+                // 검색 다이얼로그 show
+                SimpleSearchDialogCompat(activity,
+                    getString(R.string.search_dialog_title),
+                    getString(R.string.search_dialog_search_hint),
+                    null,
+                    searchModels as ArrayList<SearchModel>,
+                    SearchResultListener { dialog, item, position ->
+                        val selectedItem =
+                            searchKeywordResponse.documents?.find { documentsItem -> documentsItem?.placeName == item.title }
+
+                        val address = selectedItem?.roadAddressName ?: selectedItem?.addressName!!
+
+                        // y가 latitude, x가 longitude
+                        setLocationAndMoveMap(
+                            selectedItem!!.Y!!.toDouble(),
+                            selectedItem.X!!.toDouble(),
+                            address,
+                            selectedItem.placeName.toString()
+                        )
+
+                        // room에 검색한 주소 저장
+                        mapViewModel.insertSearchAddress(
+                            searchQuery,
+                            address,
+                            curlocation?.mapPointGeoCoord?.latitude!!,
+                            curlocation?.mapPointGeoCoord?.longitude!!,
+                            DateTime.now(),
+                            selectedItem.placeName.toString()
+                        )
+
+                        floatingAddress = address
+
+                        dialog.dismiss()
+                    }).show()
+            })
+
         // 맵뷰를 세팅
         setMapView()
 
@@ -136,7 +200,9 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
                     mainActivity.showLoading()
 
                     query?.let {
-                        mapViewModel.getSearchAddress(it, object :
+                        val location = if (selectedMyLocation) mylocation?.mapPointGeoCoord else curlocation?.mapPointGeoCoord
+
+                        val resultListener = object :
                             IResult<String> {
                             override fun success(result: String) {
                                 mainActivity.hideLoading()
@@ -149,7 +215,12 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
                                     msg ?: getString(R.string.search_view_search_fail)
                                 )
                             }
-                        })
+                        }
+
+                        when(searchType){
+                            SearchType.ADDRESS -> mapViewModel.getSearchAddress(it, resultListener)
+                            SearchType.KEYWORD -> mapViewModel.getSearchKeyword(it, location?.latitude!!, location.longitude, resultListener)
+                        }
                     }
                     return true
                 }
@@ -185,6 +256,23 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
                 } else {
                     selectedMyLocation = false
                     moveMap(floatingAddress.toString())
+                }
+            }
+        }
+
+        spinner_searchtype.run {
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?,
+                                            view: View?,
+                                            pos: Int,
+                                            id: Long) {
+                    when (pos) {
+                        0 -> searchType = SearchType.ADDRESS
+                        1 -> searchType = SearchType.KEYWORD
+                    }
                 }
             }
         }
@@ -239,11 +327,13 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
     fun setLocationAndMoveMap(
         latitude: Double,
         longitude: Double,
-        addressName: String
+        addressName: String,
+        placeName: String = ""
     ) {
         // 위치를 세팅하고 지도를 이동시킨다
         curlocation = MapPoint.mapPointWithGeoCoord(latitude, longitude)
         floatingAddress = addressName
+        this.placeName = placeName
         selectedMyLocation = false
 
         moveMap(addressName)
@@ -269,7 +359,7 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
 
             // 해당 위치에 마커를 생성한다
             val marker = MapPOIItem().apply {
-                itemName = addressName
+                itemName = if(placeName.isEmpty()) addressName else placeName
                 mapPoint = it
                 markerType = MapPOIItem.MarkerType.BluePin
                 selectedMarkerType = MapPOIItem.MarkerType.RedPin
@@ -320,7 +410,7 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
             object : IResult<DocumentsItem?> {
                 override fun success(result: DocumentsItem?) {
                     MaterialDialog(activity).show {
-                        title(text = result?.address?.addressName)
+                        title(text = if(placeName.isEmpty()) result?.address?.addressName else placeName)
                         message(text = result?.convertDialogContent()) {
                             messageTextView.gravity = Gravity.CENTER
                         }

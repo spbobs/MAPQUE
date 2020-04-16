@@ -11,9 +11,9 @@ data class DocumentsItem(
 ) {
     fun convertDialogContent(): String {
         // 마커 터치시 뜨는 다이얼로그 내용으로 변환
-        var message = "(구)주소 : ${address?.addressName}\n"
+        var message = "(구)주소 : ${address?.addressName}\n\n"
         if (roadAddress != null && !roadAddress.addressName.isNullOrEmpty())
-            message += "도로명 주소: ${roadAddress.addressName}\n"
+            message += "도로명 주소: ${roadAddress.addressName}\n\n"
 
         val enableZipCode: String = if (address?.zipCode.isNullOrEmpty()) {
             if (!roadAddress?.zoneNo.isNullOrEmpty()) {

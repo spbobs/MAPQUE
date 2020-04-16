@@ -15,13 +15,18 @@
         <item>검색 기록</item>
     </string-array>
 
+    <string-array name="search_type">
+        <item>주소 검색</item>
+        <item>키워드 검색</item>
+    </string-array>
+
     <string name="btn_titles_prefix">&lt;</string>
     <string name="btn_titles_suffix">&gt;</string>
 
     <!-- SearchListFragment -->
     <string name="searchlist_query_hint">검색어를 입력하세요.</string>
     <string name="searchlist_title">지금까지 검색한 목록입니다</string>
-    <string name="searchlist_address_title">선택한 주소 :</string>
+    <string name="searchlist_address_title">주소 :</string>
     <string name="searchlist_date_title">검색 시간 :</string>
     <string name="searchlist_refreshall_btn_title">전체 목록 보기</string>
 

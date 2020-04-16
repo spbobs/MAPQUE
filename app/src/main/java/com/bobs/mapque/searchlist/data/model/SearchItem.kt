@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormat
 data class SearchItem(
     @PrimaryKey(autoGenerate = true) val uid: Long = 0,
     @ColumnInfo(name = "search_query") val searchQuery: String? = "",
+    @ColumnInfo(name = "search_placename") val searchPlaceName: String? = "",
     @ColumnInfo(name = "search_address_name") val searchAddressName: String? = "",
     @ColumnInfo(name = "search_latitude") val searchLatitude: Double,
     @ColumnInfo(name = "search_longitude") val searchLongitude: Double,

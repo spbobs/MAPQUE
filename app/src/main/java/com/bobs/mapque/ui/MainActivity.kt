@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
 
             mapFragment.setLocationAndMoveMap(
                 item.searchLatitude, item.searchLongitude,
-                item.searchAddressName.toString()
+                item.searchAddressName.toString(),
+                item.searchPlaceName.toString()
             )
 
             main_viewpager.currentItem = 0

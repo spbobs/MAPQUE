@@ -29,7 +29,7 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 import org.joda.time.DateTime
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
@@ -242,7 +242,7 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
                 (activity as MainActivity).showLoading()
 
                 // 내 위치 트랙킹을 다시 활성화 시킨다
-                mapView.currentLocationTrackingMode =
+                mapView?.currentLocationTrackingMode =
                     MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
                 onceMyLocationMove = false
             }
@@ -297,9 +297,9 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
     }
 
     private fun setMapView() {
-        mapView.run {
+        mapView?.run {
             // 맵 관련 이벤트
-//            setMapViewEventListener(this@MapFragment)
+    //            setMapViewEventListener(this@MapFragment)
 
             // 마커 관련 이벤트
             setPOIItemEventListener(this@MapFragment)
@@ -345,17 +345,17 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
 
         if (!selectedMyLocation) {
             // 내 위치로 이동하는게 아니면 트랙킹모드를 끈다
-            mapView.currentLocationTrackingMode =
+            mapView?.currentLocationTrackingMode =
                 MapView.CurrentLocationTrackingMode.TrackingModeOff
             // 내 위치에 표시되어있는 파란색 마커 제거
-            mapView.setShowCurrentLocationMarker(false)
+            mapView?.setShowCurrentLocationMarker(false)
         }
 
         val location = if (selectedMyLocation) mylocation else curlocation
 
         location?.let {
             // 어차피 마커는 하나이므로 all로 제거한다
-            mapView.removeAllPOIItems()
+            mapView?.removeAllPOIItems()
 
             // 해당 위치에 마커를 생성한다
             val marker = MapPOIItem().apply {
@@ -366,10 +366,10 @@ class MapFragment : Fragment(), MapView.POIItemEventListener, MapView.CurrentLoc
             }
 
             // 마커를 추가하고 해당 위치로 지도를 이동한다
-            mapView.addPOIItem(marker)
-            mapView.selectPOIItem(marker, false)
-            mapView.setMapCenterPoint(it, true)
-            mapView.requestFocus()
+            mapView?.addPOIItem(marker)
+            mapView?.selectPOIItem(marker, false)
+            mapView?.setMapCenterPoint(it, true)
+            mapView?.requestFocus()
         }
 
         onceMyLocationMove = true

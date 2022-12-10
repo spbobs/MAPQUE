@@ -4,10 +4,10 @@ import android.Manifest
 import android.content.Context
 import com.bobs.mapque.R
 import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
+import com.gun0912.tedpermission.normal.TedPermission
 
 fun checkPermission(context: Context,  permissionListener: PermissionListener, vararg permissions: String) {
-    TedPermission.with(context)
+    TedPermission.create()
         .setPermissionListener(permissionListener)
         .setRationaleTitle(R.string.permission_rationale_title)
         .setRationaleMessage(R.string.permission_rationale_msg)
@@ -17,7 +17,7 @@ fun checkPermission(context: Context,  permissionListener: PermissionListener, v
         .check()
 }
 fun checkLocationPermission(context: Context,  permissionListener: PermissionListener) {
-    TedPermission.with(context)
+    TedPermission.create()
         .setPermissionListener(permissionListener)
         .setRationaleTitle(R.string.permission_rationale_title)
         .setRationaleMessage(R.string.permission_rationale_msg)

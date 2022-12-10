@@ -15,7 +15,7 @@ import com.bobs.mapque.util.listener.MapListener
 import com.bobs.mapque.util.listener.SearchListListener
 import com.bobs.mapque.searchlist.viewmodel.SearchListViewModel
 import kotlinx.android.synthetic.main.fragment_search_list.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class SearchListFragment(private val mapListener: MapListener<SearchItem>) :

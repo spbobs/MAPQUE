@@ -8,17 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import com.bobs.baselibrary.util.loge
-import com.bobs.mapque.BuildConfig
 import com.bobs.mapque.R
 import com.bobs.mapque.util.ADManager
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.VideoOptions
-import com.google.android.gms.ads.formats.NativeAdOptions
-import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import kotlinx.android.synthetic.main.dialog_native_ad.*
 
 class NativeAdDialog(context: Context) : Dialog(context) {
@@ -41,18 +34,18 @@ class NativeAdDialog(context: Context) : Dialog(context) {
     }
 
     private fun refreshUnifiedNativeAd() {
-        ADManager.unifiedNativeAd?.let {
+        ADManager.nativeAd?.let {
             val adView =
-                layoutInflater.inflate(R.layout.ad_unified, null) as UnifiedNativeAdView
-            populateUnifiedNativeAdView(it, adView)
+                layoutInflater.inflate(R.layout.ad_unified, null) as NativeAdView
+            populateNativeAdView(it, adView)
             adviewContainer.removeAllViews()
             adviewContainer.addView(adView)
         }
     }
 
-    private fun populateUnifiedNativeAdView(
-        nativeAd: UnifiedNativeAd,
-        adView: UnifiedNativeAdView
+    private fun populateNativeAdView(
+        nativeAd: NativeAd,
+        adView: NativeAdView
     ) {
         // You must call destroy on old ads when you are done with them,
         // otherwise you will have a memory leak.

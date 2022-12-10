@@ -75,7 +75,7 @@ class GpsTracker(private val activity: MainActivity) : LocationListener {
         return bestLocation
     }
 
-    override fun onLocationChanged(p0: Location?) {
+    override fun onLocationChanged(p0: Location) {
         if (location == null) {
             location = Location(p0)
         }
@@ -84,11 +84,11 @@ class GpsTracker(private val activity: MainActivity) : LocationListener {
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
     }
 
-    override fun onProviderEnabled(p0: String?) {
+    override fun onProviderEnabled(p0: String) {
         activity.toast("위치 서비스 이용 가능")
     }
 
-    override fun onProviderDisabled(p0: String?) {
+    override fun onProviderDisabled(p0: String) {
         activity.toast("위치 서비스 이용 불가")
     }
 

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.viewpager.widget.ViewPager
+import com.bobs.baselibrary.util.getKeyHash
 import com.bobs.baselibrary.util.loge
 import com.bobs.mapque.R
 import com.bobs.mapque.ui.dialog.NativeAdDialog
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // 카카오 등록용 키해시
-//        Log.e("bobs", getKeyHash(this))
+        loge(getKeyHash(this))
 
         // 툴바
         setSupportActionBar(toolbar)
@@ -223,6 +224,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        ADManager.unifiedNativeAd?.destroy()
+        ADManager.nativeAd?.destroy()
     }
 }

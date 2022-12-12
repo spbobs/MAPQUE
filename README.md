@@ -3,7 +3,6 @@
 [![HitCount](http://hits.dwyl.com/waterbobs/MAPQUE.svg)](http://hits.dwyl.com/waterbobs/MAPQUE)
  
  - 2번째 개인 프로젝트
- - google play store : https://play.google.com/store/apps/details?id=com.bobs.mapque
  - 개발자 소개 : https://github.com/waterbobs/ME
 
 

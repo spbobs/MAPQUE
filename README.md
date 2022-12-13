@@ -3,7 +3,6 @@
 [![HitCount](http://hits.dwyl.com/waterbobs/MAPQUE.svg)](http://hits.dwyl.com/waterbobs/MAPQUE)
  
  - 2번째 개인 프로젝트
- - 개발자 소개 : https://github.com/waterbobs/ME
 
 
 # 특징
